@@ -4,7 +4,7 @@ name: media-scene
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/media-scene.git
-version: 0.0.2
+version: 0.0.3
 */
 import Scene from 'scenejs';
 

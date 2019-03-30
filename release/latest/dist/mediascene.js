@@ -4,7 +4,7 @@ name: media-scene
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/media-scene.git
-version: 0.0.2
+version: 0.0.3
 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('scenejs')) :
