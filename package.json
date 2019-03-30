@@ -1,6 +1,6 @@
 {
   "name": "media-scene",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A library for media control.",
   "main": "./dist/mediascene.js",
   "module": "dist/mediascene.esm.js",
