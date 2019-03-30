@@ -1,6 +1,6 @@
 {
   "name": "media-scene",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A library for media control.",
   "main": "./dist/mediascene.js",
   "module": "dist/mediascene.esm.js",
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rollup -c && npm run declaration",
     "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
-    "release": "release"
+    "release": "npm run build && release"
   },
   "keywords": [
     "scene",
@@ -34,12 +34,11 @@
   },
   "homepage": "https://github.com/daybrush/media-scene#readme",
   "dependencies": {
-    "scenejs": "^1.0.0-rc4",
-    "sync-exec": "^0.6.2"
+    "scenejs": "^1.0.0-rc4"
   },
   "devDependencies": {
     "@daybrush/builder": "0.0.2",
-    "@daybrush/release": "0.0.3",
+    "@daybrush/release": "0.0.6",
     "tslint": "^5.14.0",
     "typescript": "^2.8.4"
   }
