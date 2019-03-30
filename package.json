@@ -1,0 +1,42 @@
+{
+  "name": "media-scene",
+  "version": "0.0.1",
+  "description": "A library for media control.",
+  "main": "./dist/mediascene.js",
+  "scripts": {
+    "build": "rollup -c",
+    "release": "release"
+  },
+  "keywords": [
+    "scene",
+    "scenejs",
+    "animate",
+    "animation",
+    "css",
+    "requestAnimationFrame",
+    "motion",
+    "audio",
+    "video",
+    "media"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daybrush/media-scene.git"
+  },
+  "author": "Daybrush",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daybrush/media-scene/issues"
+  },
+  "homepage": "https://github.com/daybrush/media-scene#readme",
+  "dependencies": {
+    "scenejs": "^1.0.0-rc4",
+    "sync-exec": "^0.6.2"
+  },
+  "devDependencies": {
+    "@daybrush/builder": "0.0.2",
+    "@daybrush/release": "0.0.3",
+    "tslint": "^5.14.0",
+    "typescript": "^2.8.4"
+  }
+}
