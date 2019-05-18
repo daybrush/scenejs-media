@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<body>
+</body>
+<script src="../node_modules/scenejs/dist/scene.js"></script>
+<script src="../node_modules/@scenejs/timeline/dist/timeline.pkgd.js"></script>
+<script src="../dist/media.js"></script>
+<script>
+
+    const mediaScene = new MediaScene();
+
+    mediaScene
+        .addMedia("./clapper.mp3")
+        .seek(0, 0.452)
+        .setVolume(0.5)
+        .setPlaySpeed(2)
+        .setDelay(1);
+
+
+    // mediaScene.setIterationCount("infinite");
+    new Timeline(mediaScene, document.body);
+
+</script>

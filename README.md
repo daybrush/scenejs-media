@@ -1,19 +1,17 @@
-# media-scene [![npm version](https://badge.fury.io/js/media-scene.svg)](https://badge.fury.io/js/media-scene)
+# @scenejs/media [![npm version](https://badge.fury.io/js/@scenejs/media.svg)](https://badge.fury.io/js/@scenejs/media)
 
-A library for playing or controlling media
-## dependencies
-* **[scenejs](github.com/daybrush/scenejs)** >= 1.0.0-rc4
+A library for playing or controlling media with **[scenejs](github.com/daybrush/scenejs)**
 
 ## Installation
 ### npm
 ```sh
-$ npm i media-scene
+$ npm i @scenejs/media
 ```
 
 ### script
 ```html
 <script src="//daybrush.com/scenejs/release/latest/dist/scene.js"></script>
-<script src="//daybrush.com/media-scene/release/latest/dist/mediascene.js"></script>
+<script src="//daybrush.com/scenejs-media/release/latest/dist/media.js"></script>
 ```
 
 

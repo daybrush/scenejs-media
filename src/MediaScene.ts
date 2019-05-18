@@ -1,88 +1,35 @@
-import Scene, { SceneItem } from "scenejs";
+import Scene from "scenejs";
+import Media from "./Media";
+import { MediaSceneInfo } from "./types";
 
 export default class MediaScene extends Scene {
-    playInfos = {};
-    constructor(duration, properties, options) {
+    private playInfos = {};
+    constructor() {
         super();
-        this.setDuration(duration);
-        this.load(properties, options);
-        this.init();
     }
-    getInfo() {
-        const mediaInfo = {};
-        this.forEach((item: SceneItem, path) => {
-            const info = {};
-            const times = item.times;
+    /**
+     * add video or audio mediaInfo
+     * @param - unique id
+     * @param - audio
+     */
+    public addMedia(id: string, url: string | HTMLMediaElement = id): Media {
+        const media = new Media(url);
 
-            times.forEach(time => {
-                const frame = item.getFrame(time);
-                const seek = frame.get("seek");
-                const playSpeed = frame.get("playSpeed") || 1;
-                const volume = frame.get("volume") || 1;
+        this.setItem(id, media);
+        return media;
+    }
+    public getInfo(): MediaSceneInfo {
+        const info: MediaSceneInfo = {
+            duration: 0,
+            medias: [],
+        };
 
-                info[time] = {
-                    seek,
-                    playSpeed,
-                    volume,
-                }
-            });
-            mediaInfo[path] = info;
+        this.forEach((media: Media) => {
+            info.medias.push(media.getInfo());
         });
 
-        return mediaInfo;
-    }
-    init() {
-        const playInfos = this.playInfos;
+        info.duration = this.getDuration();
 
-        this.on("animate", e => {
-            const audioTime = e.time;
-            const isPlaying = this.getPlayState() === "running";
-
-            this.forEach((item: SceneItem, id) => {
-                !playInfos[id] &&  (playInfos[item.getId()] = {});
-
-                const itemInfo = playInfos[id];
-
-                item.times.forEach(time => {
-                    const element = item.elements[0] as HTMLMediaElement;
-
-                    if (!element) {
-                        return;
-                    }
-                    !itemInfo[time] && (itemInfo[time] = {isPlay: false});
-                    const playInfo = itemInfo[time];
-                    const frame = item.getFrame(time);
-                    const [startTime, endTime] = frame.get("seek");
-                    const playSpeed = frame.get("playSpeed") || 1;
-                    const duration = endTime - startTime;
-
-                    if (audioTime > time + duration / playSpeed) {
-                        // play end
-                        if (isPlaying) {
-                            playInfo.isPlay = false;
-                            element.pause();
-                        }
-                        return;
-                    } else if (audioTime < time) {
-                        // not play
-                        playInfo.isPlay = false;
-                        return;
-                    } else if (playInfo.isPlay) {
-                        return;
-                    }
-                    const distance = (audioTime - time) * playSpeed;
-                    const volume = frame.get("volume") || 1;
-
-                    element.currentTime = startTime + (0.01 > distance ? 0 : distance);
-                    element.playbackRate = playSpeed;
-                    element.volume = volume;
-
-                    if (isPlaying) {
-                        playInfo.isPlay = true;
-                        element.play();
-                    }
-                });
-            });
-        });
+        return info;
     }
 }

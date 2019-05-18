@@ -4,18 +4,26 @@ export default builder([
   {
     name: "MediaScene",
     input: "src/MediaScene.ts",
-    output: "./dist/mediascene.js",
+    output: "./dist/media.js",
+    resolve: true,
+    external: {
+        "scenejs": "Scene",
+    }
   },
   {
     name: "MediaScene",
     input: "src/MediaScene.ts",
-    output: "./dist/mediascene.min.js",
+    output: "./dist/media.min.js",
+    resolve: true,
+    external: {
+        "scenejs": "Scene",
+    },
     uglify: true,
   },
   {
     name: "MediaScene",
     input: "src/MediaScene.ts",
-    output: "./dist/mediascene.esm.js",
+    output: "./dist/media.esm.js",
     format: "es",
   },
 
