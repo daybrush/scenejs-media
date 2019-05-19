@@ -58,6 +58,9 @@ export default class Media extends Scene {
         const mediaItem = this.newItem("media");
         mediaItem.newFrame(0);
         mediaItem.newFrame(1);
+        mediaItem.set(0, "volume", 1);
+        mediaItem.set(0, "seek", 0);
+        mediaItem.set("100%", "seek", 0);
 
         this.mediaItem = mediaItem;
 
@@ -77,7 +80,7 @@ export default class Media extends Scene {
             this.setElement(url);
         }
         let prevTime = 0;
-        this.on("pause", e => {
+        this.on("paused", e => {
             const mediaElement = mediaItem.getElements()[0] as HTMLMediaElement;
             this.isPlayMedia = false;
             mediaElement.pause();
@@ -86,7 +89,7 @@ export default class Media extends Scene {
             const mediaElement = mediaItem.getElements()[0] as HTMLMediaElement;
             const time = e.time;
             const isReversTime = prevTime > time;
-            const isPlaying = this.getPlayState() === "running";
+            const isRunning = this.getPlayState() === "running";
             const isReverse = this.getDirection().indexOf("reverse") > -1;
             const isPlayMedia = this.isPlayMedia;
             const frame = e.frames.media;
@@ -96,22 +99,31 @@ export default class Media extends Scene {
             const seek = frame.get("seek");
 
             prevTime = time;
+
+            if (!isRunning || !isPlayMedia) {
+                mediaElement.playbackRate = playSpeed * (isReverse ? -1 : 1);
+                mediaElement.currentTime = seek;
+                console.log(seek, mediaElement.currentTime);
+            }
             if (isReversTime || time <= 0 || duration <= time) {
                 // end play
-                if (isPlaying) {
+                if (isRunning) {
                     this.isPlayMedia = false;
                     mediaElement.pause();
                 }
             } else {
                 mediaElement.volume = volume;
 
-                if (!isPlaying || !isPlayMedia) {
-                    mediaElement.playbackRate = playSpeed * (isReverse ? -1 : 1);
-                    mediaElement.currentTime = seek;
-                }
-                if (!isPlayMedia && isPlaying) {
+                if (!isPlayMedia && isRunning) {
                     this.isPlayMedia = true;
-                    mediaElement.play();
+                    const result = mediaElement.play();
+
+                    if (result instanceof Promise) {
+                        result.catch(() => {
+                            mediaElement.muted = true;
+                            mediaElement.play();
+                        });
+                    }
                 }
             }
         });

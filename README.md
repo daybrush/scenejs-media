@@ -1,4 +1,4 @@
-# @scenejs/media [![npm version](https://badge.fury.io/js/@scenejs/media.svg)](https://badge.fury.io/js/@scenejs/media)
+# @scenejs/media [![npm version](https://badge.fury.io/js/%40scenejs%2Fmedia.svg)](https://badge.fury.io/js/%40scenejs%2Fmedia)
 
 A library for playing or controlling media with **[scenejs](github.com/daybrush/scenejs)**
 
