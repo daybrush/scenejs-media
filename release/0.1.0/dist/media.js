@@ -175,13 +175,20 @@ version: 0.1.0
           this.setElement(url);
         }
 
+        var prevTime = 0;
+        this.on("pause", function (e) {
+          var mediaElement = mediaItem.getElements()[0];
+          _this.isPlayMedia = false;
+          mediaElement.pause();
+        });
         this.on("animate", function (e) {
           var mediaElement = mediaItem.getElements()[0];
+          var time = e.time;
+          var isReversTime = prevTime > time;
           var isPlaying = _this.getPlayState() === "running";
           var isReverse = _this.getDirection().indexOf("reverse") > -1;
           var isPlayMedia = _this.isPlayMedia;
           var frame = e.frames.media;
-          var time = e.time;
           var playSpeed = mediaItem.getPlaySpeed();
 
           var duration = _this.getDuration();
@@ -189,8 +196,9 @@ version: 0.1.0
           var volume = _this.getVolume();
 
           var seek = frame.get("seek");
+          prevTime = time;
 
-          if (time <= 0 || duration <= time) {
+          if (isReversTime || time <= 0 || duration <= time) {
             // end play
             if (isPlaying) {
               _this.isPlayMedia = false;
