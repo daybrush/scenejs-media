@@ -76,21 +76,27 @@ export default class Media extends Scene {
             }
             this.setElement(url);
         }
+        let prevTime = 0;
+        this.on("pause", e => {
+            const mediaElement = mediaItem.getElements()[0] as HTMLMediaElement;
+            this.isPlayMedia = false;
+            mediaElement.pause();
+        });
         this.on("animate", e => {
             const mediaElement = mediaItem.getElements()[0] as HTMLMediaElement;
-
+            const time = e.time;
+            const isReversTime = prevTime > time;
             const isPlaying = this.getPlayState() === "running";
             const isReverse = this.getDirection().indexOf("reverse") > -1;
             const isPlayMedia = this.isPlayMedia;
             const frame = e.frames.media;
-            const time = e.time;
-
             const playSpeed = mediaItem.getPlaySpeed();
             const duration = this.getDuration();
             const volume = this.getVolume();
             const seek = frame.get("seek");
 
-            if (time <= 0 || duration <= time) {
+            prevTime = time;
+            if (isReversTime || time <= 0 || duration <= time) {
                 // end play
                 if (isPlaying) {
                     this.isPlayMedia = false;
