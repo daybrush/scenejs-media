@@ -103,7 +103,6 @@ export default class Media extends Scene {
             if (!isRunning || !isPlayMedia) {
                 mediaElement.playbackRate = playSpeed * (isReverse ? -1 : 1);
                 mediaElement.currentTime = seek;
-                console.log(seek, mediaElement.currentTime);
             }
             if (isReversTime || time <= 0 || duration <= time) {
                 // end play
