@@ -55,7 +55,7 @@ export default class Media extends Scene {
         return info;
     }
     private init(url: string | HTMLMediaElement) {
-        const mediaItem = this.newItem("media");
+        const mediaItem = this.newItem("media") as SceneItem;
         mediaItem.newFrame(0);
         mediaItem.newFrame(1);
         mediaItem.set(0, "volume", 1);
