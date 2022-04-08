@@ -38,6 +38,9 @@ export default class Media extends Scene {
         this.mediaItem.setElement(element);
         return this;
     }
+    public getMediaElement() {
+        return this.mediaItem.getElements()[0] as HTMLMediaElement;
+    }
     public getInfo(): MediaInfo {
         const mediaItem = this.mediaItem;
         const seek = [mediaItem.get(0, "seek"), mediaItem.get("100%", "seek")];
@@ -81,12 +84,11 @@ export default class Media extends Scene {
         }
         let prevTime = 0;
         this.on("paused", e => {
-            const mediaElement = mediaItem.getElements()[0] as HTMLMediaElement;
             this.isPlayMedia = false;
-            mediaElement.pause();
+            this.getMediaElement()?.pause();
         });
         this.on("animate", e => {
-            const mediaElement = mediaItem.getElements()[0] as HTMLMediaElement;
+            const mediaElement = this.getMediaElement();
             const time = e.time;
             const isReversTime = prevTime > time;
             const isRunning = this.getPlayState() === "running";

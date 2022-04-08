@@ -1,8 +1,8 @@
 {
   "name": "@scenejs/media",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "A library for media control.",
-  "main": "./dist/media.js",
+  "main": "./dist/media.cjs.js",
   "module": "dist/media.esm.js",
   "sideEffects": false,
   "types": "declaration/MediaScene.d.ts",
@@ -35,14 +35,14 @@
   },
   "homepage": "https://github.com/daybrush/scenejs-media#readme",
   "dependencies": {
-    "@daybrush/utils": "^0.9.0",
-    "scenejs": "^1.0.0"
+    "@daybrush/utils": "^1.6.0",
+    "scenejs": "^1.5.0"
   },
   "devDependencies": {
     "@daybrush/builder": "0.0.2",
     "@daybrush/release": "^0.2.4",
     "@scenejs/timeline": "0.0.9",
     "tslint": "^5.14.0",
-    "typescript": "^2.8.4"
+    "typescript": "^4.6.3"
   }
 }
