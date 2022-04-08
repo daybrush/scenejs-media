@@ -6,8 +6,10 @@ author: Daybrush
 repository: git+https://github.com/daybrush/scenejs-media.git
 version: 0.2.0
 */
-import Scene from 'scenejs';
-import { isString } from '@daybrush/utils';
+'use strict';
+
+var Scene = require('scenejs');
+var utils = require('@daybrush/utils');
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -126,7 +128,7 @@ function (_super) {
     mediaItem.set("100%", "seek", 0);
     this.mediaItem = mediaItem;
 
-    if (isString(url)) {
+    if (utils.isString(url)) {
       var audio = new Audio();
       audio.src = url;
       this.setElement(audio);
@@ -244,5 +246,15 @@ function (_super) {
   return MediaScene;
 }(Scene);
 
-export default MediaScene;
-export { Media };
+
+
+var modules = ({
+    Media: Media,
+    default: MediaScene
+});
+
+for (var name in modules) {
+  MediaScene[name] = modules[name];
+}
+
+module.exports = MediaScene;
