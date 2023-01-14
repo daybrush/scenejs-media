@@ -1,4 +1,4 @@
-import builder from "@daybrush/builder";
+const builder = require("@daybrush/builder");
 
 const defaultOptions = {
     name: "MediaScene",
@@ -6,33 +6,35 @@ const defaultOptions = {
     output: "./dist/media.js",
     exports: "default",
 }
-export default builder([
-  {
-    ...defaultOptions,
-    resolve: true,
-    external: {
-        "scenejs": "Scene",
-    }
-  },
-  {
-    ...defaultOptions,
-    output: "./dist/media.min.js",
-    resolve: true,
-    uglify: true,
-    external: {
-        "scenejs": "Scene",
+module.exports = builder([
+    {
+        ...defaultOptions,
+        resolve: true,
+        external: {
+            "scenejs": "Scene",
+        }
     },
-  },
-  {
-    ...defaultOptions,
-    input: "src/index.ts",
-    output: "./dist/media.esm.js",
-    format: "es",
-    exports: "named",
-  },
-  {
-    ...defaultOptions,
-    output: "./dist/media.cjs.js",
-    format: "cjs",
-  },
+    {
+        ...defaultOptions,
+        output: "./dist/media.min.js",
+        resolve: true,
+        uglify: true,
+        external: {
+            "scenejs": "Scene",
+        },
+    },
+    {
+        ...defaultOptions,
+        input: "src/index.ts",
+        output: "./dist/media.esm.js",
+        format: "es",
+        exports: "named",
+    },
+    {
+        ...defaultOptions,
+        input: "src/index.cjs.ts",
+        output: "./dist/media.cjs.js",
+        format: "cjs",
+        exports: "named",
+    },
 ]);
